@@ -129,6 +129,14 @@ ex <- removePeptides(ex,removePeps = FALSE)
 
 The user can choose to normalise the data: the main methods used to normalise are a median normalisation and a loess normalisation. To choose the type of normalisation the user can pass the following strings in the `normalise` argument of the `runNormalisation` method: `'loess'`, `'median'` or `'none'`.
 
+The `'loess'` normalisation is calculated with the `loess.normalize` function of the affy package
+in R. Loess has been shown compared to other methods that performs systematically well in the differential expression analysis (Välikangas et al, 2016).
+
+The median fold change normalisation is a simple function we developed in Doscheda that
+computes the median of each column of the input data and this is used to divide each
+protein fold change of the corresponding column from which the median was derived.
+The median fold change normalisation scales each condition to its median and it would simply move the data so that the median difference is 0 and it will not correct for any non-linear bias.
+
 # Fitting a Model 
 
 In the Doscheda package, the user can fit two different types of model: A linear fit or a sigmoidal fit. If possible it is recommended that one fit a sigmoidal curve to the data given that there are enough concentrations for the appropriate protein dose-response. The method for fitting a model to the data is `fitModel` on the `ChemoProtSet` object that has been set up using the previous steps above. The final results of the pipeline will be accessible in the `finalData` slot of the returned object. 
@@ -292,3 +300,5 @@ Cox, J. and Mann, M., 2008. MaxQuant enables high peptide identification rates, 
 Bantscheff, M., Lemeer, S., Savitski, M.M. and Kuster, B., 2012. Quantitative mass spectrometry in proteomics: critical review update from 2007 to the present. ***Analytical and bioanalytical chemistry***, pp.1-27.
 
 Tebbe, A., Klammer, M., Sighart, S., Schaab, C. and Daub, H., 2015. Systematic evaluation of label‐free and super‐SILAC quantification for proteome expression analysis. Rapid Communications in Mass Spectrometry, 29(9), pp.795-801.
+
+Välikangas, T., Suomi, T. and Elo, L.L., 2016. A systematic evaluation of normalization methods in quantitative label-free proteomics. Briefings in bioinformatics, p.bbw095.
