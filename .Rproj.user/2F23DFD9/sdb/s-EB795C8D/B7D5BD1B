@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Default boxplot for objects of class ChemoProtSet\n#'\n#'Description\n#'\n#' @param x object of class 'ChemoProtSet'\n#' @param ... other plotting options\n#' @return boxplot for objects of class ChemoProtSet\n#' @export\n#'\n#'@importMethodsFrom  affy boxplot\nsetMethod(f= \"boxplot\",\n          signature=\"ChemoProtSet\",\n          definition=function(x, ...)\n          {\n            if(x@parameters$dataType == 'intensity'){\n              vec<- 1:((x@parameters$chans -1) * x@parameters$reps)\n\n            }else{\n              vec<- 1:(x@parameters$chans * x@parameters$reps)\n            }\n\n            vec<- length(vec)\n            palette.bar <- rep(grDevices::terrain.colors(x@parameters$reps),each = ifelse(x@parameters$dataType != 'intensity',x@parameters$chans,x@parameters$chans - 1 ) )\n            if(nrow(x@normData) == 0){\n              data.merged<- x@input\n            }else{\n              data.merged<- x@normData\n            }\n\n            boxplot(data.merged[,1:vec], col=palette.bar,las=2, cex.axis=1, main=c(\"Box Plots\"),\n                    ylab=c(\"Log2(ratios)\"),...)\n            legend(\"topright\",legend = paste(\"rep\",1:x@parameters$reps,sep = ' '), fill = grDevices::terrain.colors(x@parameters$reps),cex = 0.6)\n\n          }\n\n)\n",
+    "created" : 1497204281674.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "752419075",
+    "id" : "B7D5BD1B",
+    "lastKnownWriteTime" : 1495124061,
+    "last_content_update" : 1495124061,
+    "path" : "~/Desktop/Doscheda/R/boxplot.ChemoProtSet.R",
+    "project_path" : "R/boxplot.ChemoProtSet.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 16,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

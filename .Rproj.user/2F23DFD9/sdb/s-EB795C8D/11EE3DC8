@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Method to fit a model to an object of class 'ChemoProtSet'\n#'\n#' @param x object of class 'ChemoProtSet'\n#'\n#' @return  object of class ChemoProtSet\n#'\n#'\n#' @export\n#' @docType methods\n#' @rdname fitModel-methods\n#' @examples\n#' channelNames <- c(\"Abundance..F1..126..Control..REP_1\",\n#'\"Abundance..F1..127..Sample..REP_1\",  \"Abundance..F1..128..Sample..REP_1\",\n#'  \"Abundance..F1..129..Sample..REP_1\",  \"Abundance..F1..130..Sample..REP_1\",\n#'\"Abundance..F1..131..Sample..REP_1\",  \"Abundance..F2..126..Control..REP_2\",\n#' \"Abundance..F2..127..Sample..REP_2\", \"Abundance..F2..128..Sample..REP_2\",\n#'\"Abundance..F2..129..Sample..REP_2\",  \"Abundance..F2..130..Sample..REP_2\",\n#'\"Abundance..F2..131..Sample..REP_2\")\n#' ex <- new('ChemoProtSet')\n#' ex<- setParameters(x = ex,chansVal = 6, repsVal = 2,dataTypeStr = 'intensity',\n#'  modelTypeStr = 'linear',PDBool = FALSE,removePepsBool = FALSE,\n#'  incPDofPDBool = FALSE,incGeneFileBool = FALSE,organismStr = 'H.sapiens', pearsonThrshVal = 0.4)\n#' ex<- setData(x = ex, dataFrame = doschedaData, dataChannels = channelNames,\n#' accessionChannel = \"Master.Protein.Accessions\",\n#'               sequenceChannel = 'Sequence', qualityChannel = \"Qvality.PEP\" )\n#' ex <- removePeptides(ex,removePeps = FALSE)\n#' ex <- runNormalisation(ex)\n#' ex <- fitModel(ex)\n#' ex\n#'\nsetGeneric(name=\"fitModel\",\n           def=function(x)\n           {\n             standardGeneric(\"fitModel\")\n           }\n)\n#' @rdname fitModel-methods\n#'\n#'@examples\n#'ex <- processedExample\n#'ex <- runNormalisation(ex)\n#'ex <- fitModel(ex)\n#'\n#'ex\n#' @aliases fitModel,ANY,ANY-method\n#'\nsetMethod(f=\"fitModel\",\n          signature=\"ChemoProtSet\",\n          definition=function(x)\n          {\n            if(dim(x@normData)[1] == 0){\n              x@finalData <- fit_model(dataFrame = x@input,chans = x@parameters$chans,\n                                               reps = x@parameters$reps, PD2 = x@parameters$PD,\n                                               sigmoidConc = x@parameters$sigmoidConc, incPDofPD = x@parameters$incPDofPD,\n                                               PDofPD = x@parameters$PDofPD,\n                                               dataType = x@parameters$dataType, modelType = x@parameters$modelType\n\n              )\n            }else{\n              x@finalData <- fit_model(dataFrame = x@normData,chans = x@parameters$chans,\n                                               reps = x@parameters$reps, PD2 = x@parameters$PD,\n                                               sigmoidConc = x@parameters$sigmoidConc, incPDofPD = x@parameters$incPDofPD,\n                                               PDofPD = x@parameters$PDofPD,\n                                               dataType = x@parameters$dataType, modelType = x@parameters$modelType\n\n              )\n            }\n\n            return(x)\n          }\n\n)\n",
+    "created" : 1495204798169.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4205295913",
+    "id" : "11EE3DC8",
+    "lastKnownWriteTime" : 1498070260,
+    "last_content_update" : 1498070260698,
+    "path" : "~/Desktop/Doscheda/R/fitModel.R",
+    "project_path" : "R/fitModel.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

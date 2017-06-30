@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#'Accessor function for the Input\n#'\n#'Accessor function for the Input slot of a ChemoProtSet object.\n#'\n#' @param x object of class ChemoProtSet\n#'\n#' @return  object of class ChemoProtSet\n#'\n#' @examples\n#' ex <- new('ChemoProtSet')\n#' getInput(ex)\n#'\n#' @export\n#' @docType methods\n#' @rdname getInput-methods\n#'\nsetGeneric(name=\"getInput\",\n           def=function(x)\n           {\n             standardGeneric(\"getInput\")\n           }\n)\n\n#' @rdname getInput-methods\n#' @aliases getInput,ANY,ANY-method\nsetMethod(f=\"getInput\",\n          signature=\"ChemoProtSet\",\n          definition=function(x)\n          {\n            return(x@input)\n          }\n\n)\n\n#'Accessor function for the normData\n#'\n#'Accessor function for the normData slot of a ChemoProtSet object.\n#'\n#' @param x object of class ChemoProtSet\n#'\n#' @return  object of class ChemoProtSet\n#'\n#' @examples\n#' ex <- new('ChemoProtSet')\n#' getNorm(ex)\n#'\n#' @export\n#' @docType methods\n#' @rdname getNorm-methods\n#'\nsetGeneric(name=\"getNorm\",\n           def=function(x)\n           {\n             standardGeneric(\"getNorm\")\n           }\n)\n\n#' @rdname getNorm-methods\n#' @aliases getNorm,ANY,ANY-method\nsetMethod(f=\"getNorm\",\n          signature=\"ChemoProtSet\",\n          definition=function(x)\n          {\n            return(x@normData)\n          }\n\n)\n\n#'Accessor function for the finalData slot.\n#'\n#'Accessor function for the finalData slot of a ChemoProtSet object.\n#'\n#' @param x object of class ChemoProtSet\n#'\n#' @return  object of class ChemoProtSet\n#'\n#' @examples\n#' ex <- new('ChemoProtSet')\n#' getParameters(ex)\n#'\n#' @export\n#' @docType methods\n#' @rdname getFinal-methods\n#'\nsetGeneric(name=\"getFinal\",\n           def=function(x)\n           {\n             standardGeneric(\"getFinal\")\n           }\n)\n\n#' @rdname getFinal-methods\n#' @aliases getFinal,ANY,ANY-method\nsetMethod(f=\"getFinal\",\n          signature=\"ChemoProtSet\",\n          definition=function(x)\n          {\n            return(x@finalData)\n          }\n\n)\n\n#'Accessor function for the parameters slot.\n#'\n#'Accessor function for the parameters slot of a ChemoProtSet object.\n#'\n#' @param x object of class ChemoProtSet\n#'\n#' @return  object of class ChemoProtSet\n#'\n#' @examples\n#' ex <- new('ChemoProtSet')\n#' getParameters(ex)\n#'\n#' @export\n#' @docType methods\n#' @rdname getParameters-methods\n#'\nsetGeneric(name=\"getParameters\",\n           def=function(x)\n           {\n             standardGeneric(\"getParameters\")\n           }\n)\n\n#' @rdname getParameters-methods\n#' @aliases getParameters,ANY,ANY-method\nsetMethod(f=\"getParameters\",\n          signature=\"ChemoProtSet\",\n          definition=function(x)\n          {\n            return(x@parameters)\n          }\n\n)\n\n#'Accessor function for the datasets slot.\n#'\n#'Accessor function for the datasets slot of a ChemoProtSet object.\n#'\n#' @param x object of class ChemoProtSet\n#'\n#' @return  object of class ChemoProtSet\n#'\n#' @examples\n#' ex <- new('ChemoProtSet')\n#' getDatasets(ex)\n#'\n#' @export\n#' @docType methods\n#' @rdname getDatasets-methods\n#'\nsetGeneric(name=\"getDatasets\",\n           def=function(x)\n           {\n             standardGeneric(\"getDatasets\")\n           }\n)\n\n#' @rdname getDatasets-methods\n#' @aliases getDatasets,ANY,ANY-method\nsetMethod(f=\"getDatasets\",\n          signature=\"ChemoProtSet\",\n          definition=function(x)\n          {\n            return(x@datasets)\n          }\n\n)\n",
+    "created" : 1498043565246.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "244467132",
+    "id" : "92A3C7E9",
+    "lastKnownWriteTime" : 1498063102,
+    "last_content_update" : 1498063102501,
+    "path" : "~/Desktop/Doscheda/R/accessor.R",
+    "project_path" : "R/accessor.R",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

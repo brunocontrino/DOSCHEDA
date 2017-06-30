@@ -1,0 +1,16 @@
+Package: Doscheda
+Type: Package
+Title: A DownStream Chemo-Proteomics Analysis Pipeline
+Version: 0.99.0
+Author: Bruno Contrino, Dr Piero Ricchiuto
+Maintainer: Bruno Contrino <br1contrino@yahoo.co.uk>
+Description: A package to carry out a chemo-proteomics pipeline using experimental data. 
+License: GPL-3
+Depends: R (>= 3.4) 	
+Imports: methods, drc, stats, httr, jsonlite, reshape2 , vsn, affy, limma, stringr, ggplot2, graphics, grDevices, calibrate, corrgram, gridExtra, DT, shiny, shinydashboard, readxl, d3heatmap, prodlim
+biocViews: Proteomics
+Suggests: BiocStyle, knitr, rmarkdown, testthat
+VignetteBuilder: knitr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1

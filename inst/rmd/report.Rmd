@@ -1,0 +1,221 @@
+---
+title: "DOSCHEDA Report"
+output: html_document
+params:
+  object: NA
+---
+
+```{r packageload, echo = FALSE, warning=FALSE}
+ 
+```
+This is a summary of the data processing and plots created in the DOSCHEDA shiny app.
+
+
+ 
+Number of Channels | Number of Replicates | Input Type | Model fitted
+---|---|---|---
+`r params$object@parameters$chans`|`r params$object@parameters$chans` | `r ` | `r ifelse(params$object@parameters$modelType == 'sigmoid','Sigmoidal','Linear')`
+ 
+ 
+```{r reptest,echo = FALSE}
+   # reptest <- ifelse(params$reps > 1,TRUE,FALSE)
+ex<- params$object
+ob_params <- getParameters(ex)
+if(ob_params$reps == 1){
+  reptest <- FALSE
+  
+}else{
+  reptest <- TRUE
+}
+```
+
+**Figure 1: Box plot of Data Columns**
+ 
+```{r boxplo, echo=FALSE, eval=TRUE}
+
+ 
+
+boxplot(ex)
+ 
+```
+ 
+**Description:**
+ 
+Here we should observe the means centered at approximately zero across all channels and replicates.
+ 
+**Figure 2: Ranked plot of proteins FC and Density plot of Data Columns**
+ 
+```{r scatt, echo = FALSE}
+
+    densityPlot(ex)
+```
+ 
+**Description:**
+ 
+
+These plots show the density distribution of each channel and the distribution of the ranked proteins. The Density plots should have a bell shaped distributions and be approximately centred at zero. 
+ 
+
+**Figure 3: Mean vs standard deviation plot**
+ 
+```{r meansd, echo = FALSE}
+ 
+meanSdPlot(ex)
+ 
+```
+ 
+**Description:**
+ 
+The ranked row means versus the standard deviations for checking any dependence of the variance on the mean. The red line is a running median estimator with window-width at 10%. If this red line is approximately horizontal, this indicates no variance-mean dependence.
+
+ 
+**Figure 5: Pearson Correlation between Conditions**
+ 
+```{r corrgrm, echo = FALSE }
+    corrPlot(params$object)
+ 
+```
+ 
+**Description:**
+ 
+The Pearson correlations (*r*) between all the different channels are displayed. None of the channels are expected to be anti-correlated (*r < 0*). The QC in DOSCHEDA will highlight whether there are anti-correlated pairs of channels.
+ 
+ 
+ 
+**Figure 6: Principal-Component Analysis of Data columns**
+```{r pca , echo = FALSE}
+
+pcaPlot(params$object) 
+
+```
+ 
+**Description:**
+ 
+Plot of two highest principal components. Replicates should (roughly) cluster together. This plot highlights if any data points are vastly 'out of place' given the experimental design.
+ 
+**Figure 7: Replicate vs Replicate plots for each Channel.**
+ 
+```{r repvsrep, echo = FALSE,eval = reptest}
+ 
+ob_param <- getParameters(ex)
+for (i in 1:ob_param$reps) {
+  for  (j in 1:ob_param$reps){
+    if(i >= j ){
+      next
+    }else{
+      for (k in 0:(ob_param$chans - 1)){
+          replicatePlot(ex,conc = k,repIndex1 = i,repIndex2 = j)
+      }
+    }
+  }
+} 
+
+ 
+```
+ 
+**Description:**
+ 
+Scatterplots between replicates to identify targets (drug competed proteins) and potential off-targets. Points that have high fold change in both replicates and are close to the red  x = y line are considered to be targets.
+ 
+ 
+```{r shwt, echo=FALSE, eval = TRUE}
+if(ob_param$modelType == 'sigmoid'){
+  show_text <- TRUE
+} else{
+
+  show_text <- FALSE
+}
+```
+
+
+```{asis, echo=!show_text}
+## Linear Model Plots 
+ 
+The following plots are relevant if a linear model has been fitted to the data.
+ 
+**Figure 8: Distribution of p-values of model coefficients**
+```
+
+```{r pvals, echo = FALSE, eval = !show_text}
+  plot(params$object)
+
+```
+ 
+
+
+```{asis, echo=!show_text}
+**Description:**
+ 
+The p-value distributions for each of the model coefficients are expected to not be uniform. The QC in DOSCHEDA will highlight whether a coeffcient does not contail any significant p-values.
+ 
+**Figure 9: Volcano plots of model coefficients**
+```
+ 
+```{r volslop, echo = FALSE,eval = !show_text}
+    for (i in c('slope','intercept','quadratic')){
+      volcanoPlot(ex,coefficient = i)
+    }
+```
+
+
+```{asis, echo=show_text}
+## Sigmoidal Fit Plots 
+
+The following plots are relevant when a sigmoidal model is fitted to the data. They show the top protein profiles for each of the model parameters.
+
+```
+
+```{asis, echo=show_text}
+**Figure 8: Plot of the largest differences between the proteins from the lowest and highest concentrations (over 30%)**
+
+```
+
+```{r conditional_difftpbtm,echo = FALSE, eval = show_text}
+plot(ex,sigmoidCoef = 'difference')
+
+```
+
+```{asis, echo=show_text}
+**Description:**
+
+ Plot of the proteins profiles whose difference between the top and bottom parameters of the sigmoidal model are greater than 30%. 
+
+``` 
+
+
+```{asis, echo=show_text}
+**Figure 9: The top proteins with significant Slope Value**
+
+```
+
+
+```{r conditional_slo,echo = FALSE, eval = show_text}
+
+plot(ex,sigmoidCoef = 'slope')
+
+```
+
+```{asis, echo=show_text}
+**Description:**
+
+The top 15 protein profiles with a significant slope parameter of the sigmoidal fit. 
+
+``` 
+
+```{asis, echo=show_text}
+**Figure 10: The top proteins with significant RB50 values**
+
+```
+
+```{r conditional_RB50,echo = FALSE, eval = show_text}
+ plot(ex,sigmoidCoef = 'rb50')
+
+```
+
+```{asis, echo=show_text}
+**Description:**
+
+The top 15 protein profiles with significant RB50 parameter of the sigmoidal fit. 
+
+```
+

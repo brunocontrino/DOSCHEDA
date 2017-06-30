@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Method to remove peptides from input data of an object of class 'ChemoProtSet'\n#'\n#' @param x object of class 'ChemoProtSet'\n#' @param normalise string indicating the type of normalisation that should take place ('loess', 'median', 'none')\n#'\n#' @return  object of class ChemoProtSet\n#'\n#'@examples\n#'ex <- processedExample\n#'ex <- runNormalisation(ex)\n#'ex\n#'\n#' @export\n#' @docType methods\n#' @rdname runNormalisation-methods\nsetGeneric(name=\"runNormalisation\",\n           def=function(x, normalise = 'loess')\n           {\n             standardGeneric(\"runNormalisation\")\n           }\n)\n#' @rdname runNormalisation-methods\n#' @aliases runNormalisation,ANY,ANY-method\n#'\nsetMethod(f=\"runNormalisation\",\n          signature=\"ChemoProtSet\",\n          definition=function(x, normalise = 'loess')\n          {\n             if(x@parameters$dataType  == 'intensity'){\n              x@normData <- normalize_data( dataFrame = x@normData,chans = x@parameters$chans,\n                                                    reps = x@parameters$reps, PD2 = x@parameters$PD,\n                                                    channelNames = x@parameters$chanNames, incPDofPD = x@parameters$incPDofPD,\n                                                    PDofPD = 'pdofpd', removePeptides = x@parameters$removePeps,\n                                                    dataType = x@parameters$dataType, modelType = x@parameters$modelType,\n                                                    organism = x@parameters$organism,incGeneFile = x@parameters$incGeneFile,\n                                                    normaliseData = normalise\n              )\n\n             } else {\n               x@normData <- normalize_data( dataFrame = x@input,chans = x@parameters$chans,\n                                             reps = x@parameters$reps, PD2 = x@parameters$PD,\n                                             channelNames = x@parameters$chanNames, incPDofPD = x@parameters$incPDofPD,\n                                             PDofPD = 'pdofpd', removePeptides = x@parameters$removePeps,\n                                             dataType = x@parameters$dataType, modelType = x@parameters$modelType,\n                                             organism = x@parameters$organism,incGeneFile = x@parameters$incGeneFile,\n                                             normaliseData = normalise\n               )\n             }\n\n            return(x)\n          }\n)\n",
+    "created" : 1495206442027.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1568058519",
+    "id" : "3DA0F8E2",
+    "lastKnownWriteTime" : 1498773612,
+    "last_content_update" : 1498773612497,
+    "path" : "~/Desktop/Doscheda/R/runNormalisation.R",
+    "project_path" : "R/runNormalisation.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

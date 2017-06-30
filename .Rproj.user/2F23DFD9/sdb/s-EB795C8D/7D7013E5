@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Density plot for objects of class ChemoProtSet\n#'\n#' Description\n#'\n#' @param x object of class 'ChemoProtSet'\n#' @param rankProteins plot a the set of ranked proteins or plot the density of the channels\n#' @param ... other plot options\n#'\n#' @return density plot for objects of class ChemoProtSet\n#'\n#' @export\n#' @docType methods\n#' @rdname densityPlot-methods\n#' @examples\n#'ex <- processedExample\n#'ex <- runNormalisation(ex)\n#'ex <- fitModel(ex)\n#'densityPlot(ex)\n\nsetGeneric(name=\"densityPlot\",\n           def=function(x, rankProteins = FALSE, ...)\n           {\n             standardGeneric(\"densityPlot\")\n           }\n)\n\n#' @rdname densityPlot-methods\n#' @importFrom graphics par legend lines plot points\n#' @import grDevices\n#' @aliases densityPlot,ANY,ANY-method\n#'\nsetMethod(f= \"densityPlot\",\n          signature=\"ChemoProtSet\",\n          definition=function(x, rankProteins = FALSE, ...)\n          {\n            if(x@parameters$dataType == 'intensity'){\n              vec <- 1:((x@parameters$chans -1) * x@parameters$reps)\n\n            }else{\n              vec <- 1:(x@parameters$chans * x@parameters$reps)\n            }\n            pal <- grDevices::rainbow(length(vec))\n            leg.nam <- standard_names(x@parameters$chans, x@parameters$reps, x@parameters$dataType)\n            if(nrow(x@normData) == 0){\n              data.merged <- x@input\n            } else {\n              data.merged <- x@normData\n            }\n\n            missing_val <- 0\n\n            if(rankProteins == TRUE){\n              plot(x=rank(data.merged[,1]),y=data.merged[,1], cex.axis=1,\n                   main=c(paste(\"N. of Missing val. \",missing_val ,\n                                \" \\n Change Distribution after LOESS\",sep=\"\")),\n                   col=pal[1], ylab=c(\"Log2(ratios)\"), xlab = c(\"Proteins\"))\n              if(length(vec) > 1){\n                for(i in 2:length(vec)){\n                  points(x=rank(data.merged[,i]),y=data.merged[,i], cex.axis=1, main=c(\"\"),col=pal[i])\n                }\n              }\n              legend(\"topleft\", legend = leg.nam, fill = pal)\n\n            } else {\n\n              plot(stats::density(x=data.merged[,1]),col= pal[1], main=c(\" Density after LOESS\"), ylim = c(0,5 ),cex.axis = 1)\n              legend(\"topleft\", legend = leg.nam, fill = pal, ...)\n\n              if(length(vec) > 1){\n                for(i in 2:length(vec)){\n                  lines(stats::density(x=data.merged[,i]), col=pal[i], main = c(\"\"))\n                }\n              }\n            }\n\n          }\n\n)\n",
+    "created" : 1498083180721.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "38245958",
+    "id" : "7D7013E5",
+    "lastKnownWriteTime" : 1498132215,
+    "last_content_update" : 1498132215959,
+    "path" : "~/Desktop/Doscheda/R/densityPlot.R",
+    "project_path" : "R/densityPlot.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 15,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

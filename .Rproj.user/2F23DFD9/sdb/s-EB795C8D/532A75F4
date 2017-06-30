@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#'Plot showing correlation between all channels across replicates\n#'\n#' Plot of the correlation between all the channels in the data.\n#'\n#' @param x object of class 'ChemoProtSet'\n#' @param ... corrplot options\n#' @return correlation plot for objects of class ChemoProtSet\n#'\n#' @export\n#' @docType methods\n#' @rdname corrPlot-methods\n#' @examples\n#'\n#'ex <- processedExample\n#'ex <- runNormalisation(ex)\n#'ex <- fitModel(ex)\n#'corrPlot(ex)\n#'\n#'\n\nsetGeneric(name=\"corrPlot\",\n           def=function(x, ...)\n           {\n             standardGeneric(\"corrPlot\")\n           }\n)\n\n#' @rdname corrPlot-methods\n#' @importFrom corrgram corrgram\n#' @importFrom stats cor\n#' @aliases corrPlot,ANY,ANY-method\n#'\nsetMethod(f= \"corrPlot\",\n          signature=\"ChemoProtSet\",\n          definition=function(x, ...)\n          {\n\n            if(x@parameters$modelType == 'sigmoid'){\n              su <- x@normData\n\n            }else{\n\n              if(x@parameters$reps == 1 ){\n\n\n                su <- x@normData\n\n              }else{\n                su <- x@finalData\n              }\n            }\n\n            if(x@parameters$dataType == 'intensity'){\n\n              index<- 1:((x@parameters$chans - 1) * x@parameters$reps)\n            }else{\n              index<- 1:(x@parameters$chans * x@parameters$reps)\n            }\n            # panel.shadeNtext <- NULL; panel.pie <- NULL;  panel.txt <- NULL ;\n\n            index<- length(index)\n            # panel.shadeNtext\n            cmat <-cor(su[,1:index],use=\"pairwise\", method = \"pearson\")\n            corrgram(cmat, order=TRUE, lower.panel = function (x, y, corr = NULL, col.regions, ...)\n            {\n              if (is.null(corr))\n                corr <- stats::cor(x, y, use = \"\n                                   pair\")\n              ncol <- 14\n              pal <- col.regions(ncol)\n              col.ind <- as.numeric(cut(corr, breaks = seq(from = -1, to = 1,\n                                                           length = ncol + 1), include.lowest = TRUE))\n              usr <- graphics::par(\"usr\")\n              graphics::rect(usr[1], usr[3], usr[2], usr[4], col = pal[col.ind],\n                             border = NA)\n              graphics::box(col = \"lightgray\")\n              on.exit(graphics::par(usr))\n              graphics::par(usr = c(0, 1, 0, 1))\n              r <- formatC(corr, digits = 2, format = \"f\")\n              cex.cor <- .8/graphics::strwidth(\"-X.xx\")\n              graphics::text(0.5, 0.5, r, cex = cex.cor)},\n                     upper.panel= corrgram::panel.pie, text.panel = corrgram::panel.txt,\n                     main=\"Corrgram Plots\" )\n\n\n\n\n\n          }\n\n)\n",
+    "created" : 1497204295995.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "598824743",
+    "id" : "532A75F4",
+    "lastKnownWriteTime" : 1497208933,
+    "last_content_update" : 1497208933755,
+    "path" : "~/Desktop/Doscheda/R/corrPlot.R",
+    "project_path" : "R/corrPlot.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 19,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

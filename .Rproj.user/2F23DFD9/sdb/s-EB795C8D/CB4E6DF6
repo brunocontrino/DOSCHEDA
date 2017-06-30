@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Create report from 'ChemProtSet' object\n#'\n#' Genereate a report that includes several plots and descriptions for an experiment that has been anaylsed using Doscheda\n#'\n#' @param x Object of class 'ChemoProtSet'\n#'\n#' @return html report of processed `ChemoProtSet` object\n#' @export\n#' @examples\n#'\\dontrun{\n#' ex<- new('ChemoProtSet')\n#' makeReport(ex)\n#'}\nmakeReport <- function(x){\n\n  temp <- system.file(\"rmd/report.Rmd\", package=\"Doscheda\")\n  params <- list(object = x)\n  rmarkdown::render(temp, output_file = \"report.html\", output_dir = '.',\n                    params = params,\n                    envir = new.env())\n\n}\n",
+    "created" : 1497022801375.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "349070181",
+    "id" : "CB4E6DF6",
+    "lastKnownWriteTime" : 1497210181,
+    "last_content_update" : 1497210181401,
+    "path" : "~/Desktop/Doscheda/R/makeReport.R",
+    "project_path" : "R/makeReport.R",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 17,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

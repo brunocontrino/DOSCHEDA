@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Peptide Intensity data set for Doscheda\n#'\n#' A fabricated data set to run the Doscheda pipeline from peptide intensity.\n#'\n#' @docType data\n#'\n#' @usage data(doschedaData)\n#'\n#'\n#' @keywords datasets\n#'\n#'\n#' @examples\n#' data(doschedaData)\n#' head(doschedaData)\n#'\n\"doschedaData\"\n\n#' Processed Peptide Intensity data set for Doscheda\n#'\n#' A processed fabricated data set to run the Doscheda pipeline from peptide intensity.\n#'\n#' @docType data\n#'\n#' @usage data(processedExample)\n#'\n#'\n#' @keywords datasets\n#'\n#'\n#' @examples\n#' data(processedExample)\n#' str(processedExample)\n\"processedExample\"\n",
+    "created" : 1497207615641.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3462398407",
+    "id" : "E51DE3C0",
+    "lastKnownWriteTime" : 1498067331,
+    "last_content_update" : 1498067331730,
+    "path" : "~/Desktop/Doscheda/R/data_doc.R",
+    "project_path" : "R/data_doc.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 20,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

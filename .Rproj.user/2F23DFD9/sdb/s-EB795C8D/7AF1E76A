@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Run shiny application for DOSCHEDA\n#'\n#' Run a version of the pipline with some extra features and a simple user experience.\n#'  The application is documented in detail at here\n#' @return Launches shiny application\n#' @importFrom DT dataTableOutput renderDataTable datatable\n#' @importFrom shiny conditionalPanel shinyUI uiOutput sliderInput includeHTML h4 br HTML fluidRow fluidPage radioButtons\n#' @import shinydashboard d3heatmap prodlim readxl\n#' @export\ndoschedaApp <- function() {\n  appDir <- system.file(\"shiny-examples\", \"DOSCHEDA_App\", package = \"Doscheda\")\n  if (appDir == \"\") {\n    stop(\"Could not find example directory. Try re-installing `Doscheda`.\", call. = FALSE)\n  }\n\n  shiny::runApp(appDir, display.mode = \"normal\")\n}\n",
+    "created" : 1497376937147.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "657249084",
+    "id" : "7AF1E76A",
+    "lastKnownWriteTime" : 1497789892,
+    "last_content_update" : 1497789892875,
+    "path" : "~/Desktop/Doscheda/R/doschedaApp.R",
+    "project_path" : "R/doschedaApp.R",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 22,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

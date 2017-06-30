@@ -1,0 +1,62 @@
+---
+title: "Sigmoidal Plots"
+output: html_document
+params:
+  reps: NA
+  chans: NA
+  data: NA
+  data2: NA
+  channel: NA
+  avthrsli: NA
+  pvalsli: NA
+  indexmat: NA
+  RSu: NA
+  finNam: NA
+  datype: NA
+  sigmodin: NA
+---
+
+The following plots are generated from applying a sigmoidal fit to the data. An iterative method is used to fit the model, if the solution doesn't converge for a protein, a linear model is applied instead. 
+
+**Concentrations Used in the model:** `r params$concentr`
+
+**Figure ? Top - Bottom plot**
+
+```{r tpbtm, echo = FALSE}
+
+if(params$sigmodin != 'sigmoid'){
+     plot.new()
+      legend('topleft', c("Linear fit applied, no sigmoidal plots available"),bty = 'n')
+    }else{
+    
+ 
+    pred.names <- sigPredNames()
+    final.Names <- finalNames()
+    
+    topperc<-30 #difference in % between top and bottom
+    data_merged_2 <- dataMerge2()
+    diffinter<- data_merged_2[(data_merged_2$predX1 -data_merged_2[,paste("predX",input$chans,sep = "")]) > topperc & data_merged_2$predX1 <= 100, ]
+    
+    
+    
+    
+    if(nrow(diffinter)>0){
+      Diff_Top_bottom_pred<-shape_for_ggplot_pred(diffinter,log2(params$concentr),pred.names)
+      Diff_Top_bottom_perc<-shape_for_ggplot_perc(diffinter,log2(params$concentr),final.Names)
+      what<-c("(Top - Bottom) >")
+      
+      Diff_Top_bottom<-ggplot()+
+        geom_line(data = Diff_Top_bottom_pred, aes(x=x,y=value, colour=factor(Diff_Top_bottom_pred$GeneID)), size = 1) +
+        geom_point(data = Diff_Top_bottom_perc, aes(x=x,y=value, colour=Diff_Top_bottom_perc$GeneID)) +
+        labs(title=paste(what,topperc,sep=""))
+      
+      
+    }else{
+      Diff_Top_bottom<-ggplot()+
+        labs(title=paste("No significant Top-Bottom >" ,topperc,"%","\n","has been found", sep=""))
+    }
+    
+    print(Diff_Top_bottom)
+    }
+
+```

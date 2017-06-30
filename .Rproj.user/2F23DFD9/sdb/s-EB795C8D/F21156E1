@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Method to remove peptides from input data of an object of class 'ChemoProtSet'\n#'\n#' @param x object of class 'ChemoProtSet'\n#' @param changePearson option to change the peasrson threshold cut-off parameter\n#' @param removePeps boolean value indicating whether peptide removal should take place\n#'\n#' @return  object of class ChemoProtSet\n#'\n#' @export\n#' @docType methods\n#' @rdname removePeptides-methods\n#' @examples\n#' \\dontrun{\n#' channelNames <- c(\"Abundance..F1..126..Control..REP_1\",\n#'\"Abundance..F1..127..Sample..REP_1\",  \"Abundance..F1..128..Sample..REP_1\",\n#'  \"Abundance..F1..129..Sample..REP_1\",  \"Abundance..F1..130..Sample..REP_1\",\n#'\"Abundance..F1..131..Sample..REP_1\",  \"Abundance..F2..126..Control..REP_2\",\n#' \"Abundance..F2..127..Sample..REP_2\", \"Abundance..F2..128..Sample..REP_2\",\n#'\"Abundance..F2..129..Sample..REP_2\",  \"Abundance..F2..130..Sample..REP_2\",\n#'\"Abundance..F2..131..Sample..REP_2\")\n#'ex <- new('ChemoProtSet')\n#'ex<- setParameters(x = ex,chansVal = 6, repsVal = 2,\n#' dataTypeStr = 'intensity', modelTypeStr = 'linear',\n#'  PDBool = FALSE,removePepsBool = FALSE,incPDofPDBool = FALSE,\n#'   incGeneFileBool = FALSE,organismStr = 'H.sapiens',\n#'    pearsonThrshVal = 0.4)\n#'\n#'ex<- setData(x = ex, dataFrame = doschedaData,\n#'  dataChannels = channelNames,\n#'  accessionChannel = \"Master.Protein.Accessions\",\n#'   sequenceChannel = 'Sequence',\n#'   qualityChannel = \"Qvality.PEP\" )\n#'ex <- removePeptides(ex,removePeps = FALSE)\n#'ex\n#'}\n\nsetGeneric(name=\"removePeptides\",\n           def=function(x, changePearson = NA, removePeps = TRUE)\n           {\n             standardGeneric(\"removePeptides\")\n           }\n)\n#' @rdname removePeptides-methods\n#' @aliases removePeptides,ANY,ANY-method\n#'\nsetMethod(f=\"removePeptides\",\n          signature=\"ChemoProtSet\",\n          definition=function(x, changePearson = NA, removePeps = TRUE)\n          {\n            if(!is.na(changePearson)){\n              x@parameters$pearsonThrsh <- changePearson\n            }\n\n            if(removePeps == FALSE){\n              x@parameters$removePeps <- FALSE\n            }\n            x@normData <- remove_peptides(dataFrame = x@input, chans = x@parameters$chans,\n                                                  reps = x@parameters$reps, accessionID = 'Accession',\n                                                  chanNames = x@parameters$chanNames, sequenceID = 'Sequence',\n                                                  qualityID = 'Quality', incPDofPD = x@parameters$incPDofPD,\n                                                  PDofPD = 'pdofpd', removePeptides = x@parameters$removePeps,\n                                                  modelType = x@parameters$modelType,\n                                                  incGeneFile = x@parameters$incGeneFile, geneFile = x@datasets$GeneID\n            )\n            return(x)\n          }\n)\n",
+    "created" : 1497211256421.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2246782805",
+    "id" : "F21156E1",
+    "lastKnownWriteTime" : 1498771901,
+    "last_content_update" : 1498771901298,
+    "path" : "~/Desktop/Doscheda/R/removePeptides.R",
+    "project_path" : "R/removePeptides.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

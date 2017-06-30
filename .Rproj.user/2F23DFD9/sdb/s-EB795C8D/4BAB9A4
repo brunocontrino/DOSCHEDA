@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' MeanSd plot for objects of class ChemoProtSet\n#'\n#' Shows the ranked means with a running median calculated with a window size of 10%\n#'\n#' @param x object of class 'ChemoProtSet'\n#' @param ... other plot options\n#'\n#' @return meanSd plot for objects of class ChemoProtSet\n#'\n#' @export\n#' @docType methods\n#' @rdname meanSdPlot-methods\n#' @examples\n#'ex <- processedExample\n#'ex <- runNormalisation(ex)\n#'ex <- fitModel(ex)\n#'meanSdPlot(ex)\n\nsetGeneric(name=\"meanSdPlot\",\n           def=function(x, ...)\n           {\n             standardGeneric(\"meanSdPlot\")\n           }\n)\n\n#' @rdname meanSdPlot-methods\n#' @importFrom vsn meanSdPlot\n#' @import grDevices\n#' @aliases meanSdPlot,ANY,ANY-method\n#'\nsetMethod(f= \"meanSdPlot\",\n          signature=\"ChemoProtSet\",\n          definition=function(x, ...)\n          {\n            if(x@parameters$dataType =='linear'){\n              vsn::meanSdPlot(as.matrix(x@normData[,1:(x@parameters$chans * x@parameters$reps)]))\n            } else{\n              vsn::meanSdPlot(as.matrix(x@normData[,1:((x@parameters$chans - 1)* x@parameters$reps)]))\n            }\n          }\n\n)\n",
+    "created" : 1498401692966.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3120540353",
+    "id" : "4BAB9A4",
+    "lastKnownWriteTime" : 1498404169,
+    "last_content_update" : 1498404169740,
+    "path" : "~/Desktop/Doscheda/R/meanSdPlot.R",
+    "project_path" : "R/meanSdPlot.R",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

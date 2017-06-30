@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' PCA of the main data sets contained in a object of class ChemoProtSet\n#'\n#'Plot of Principal Component Analysis for the first two principal components of the experimental data.\n#'\n#' @param x object of class 'ChemoProtSet'\n#' @param ... other plot options\n#'\n#' @return PCA plot for objects of class ChemoProtSet\n#'\n#' @export\n#' @docType methods\n#' @rdname pcaPlot-methods\n#' @examples\n#'ex <- processedExample\n#'ex <- runNormalisation(ex)\n#'ex <- fitModel(ex)\n#'pcaPlot(ex)\n\n\nsetGeneric(name=\"pcaPlot\",\n           def=function(x, ...)\n           {\n             standardGeneric(\"pcaPlot\")\n           }\n)\n\n#' @rdname pcaPlot-methods\n#' @import ggplot2\n#' @importFrom stats prcomp\n#' @aliases pcaPlot,ANY,ANY-method\n#' @examples\n#'ex <- processedExample\n#'ex <- runNormalisation(ex)\n#'ex <- fitModel(ex)\n#'pcaPlot(ex)\n#'\nsetMethod(f= \"pcaPlot\",\n          signature=\"ChemoProtSet\",\n          definition=function(x, ...)\n          {\n            if( x@parameters$dataType == 'intensity'){\n\n              nchan<- x@parameters$chans - 1\n\n            }else{\n\n              nchan<- x@parameters$chans\n            }\n\n            su <- x@finalData\n\n            reps <- x@parameters$reps\n            index <- 1:(nchan*reps)\n            pca <- prcomp(su[,1:length(index)], scale=FALSE)\n\n            DTA<-data.frame( as.numeric(t(su[,1:length(index)])%*%pca$x[,1]),\n                             as.numeric(t(su[,1:length(index)])%*%pca$x[,2]))\n\n            p<-ggplot2::ggplot(DTA, ggplot2::aes(x=DTA$as.numeric.t.su...1.length.index........pca.x...1..,\n                                                 y=DTA$as.numeric.t.su...1.length.index........pca.x...2..))\n\n            paste0(\"PC1\", \" (\", round(pca$sdev[1]/sum(pca$sdev)*100,0), \"%)\")\n\n            shapeval <- c(15:18,7:12)\n            p <- p + ggplot2::geom_point(ggplot2::aes(colour = factor(rep(1:reps,each = (nchan)),labels = paste(\"Rep\",1:reps))[index],\n                                                      shape = factor(rep(1:nchan,reps),labels = c(paste(\"C\",0:(nchan-1),sep = \"\")))[index] ), size = 5 ) +\n              scale_shape_manual(values=shapeval[1:nchan]) + ggplot2::labs(x = paste0(\"PC1\", \" (\", round(pca$sdev[1]/sum(pca$sdev)*100,0), \"%)\"),\n                                                                           y = paste0(\"PC2\", \" (\", round(pca$sdev[2]/sum(pca$sdev)*100,0), \"%)\"), title=\"PCA\") + ggplot2::labs(color = \"Replicates\", shape=\"Concentration\")\n\n            p\n          }\n\n)\n",
+    "created" : 1497211283781.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "214565626",
+    "id" : "C902BAE1",
+    "lastKnownWriteTime" : 1497211413,
+    "last_content_update" : 1497211413006,
+    "path" : "~/Desktop/Doscheda/R/pcaPlot.R",
+    "project_path" : "R/pcaPlot.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 21,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
