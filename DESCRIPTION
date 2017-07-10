@@ -1,7 +1,7 @@
 Package: Doscheda
 Type: Package
 Title: A DownStream Chemo-Proteomics Analysis Pipeline
-Version: 0.99.0
+Version: 0.99.1
 Author: Bruno Contrino, Dr Piero Ricchiuto
 Maintainer: Bruno Contrino <br1contrino@yahoo.co.uk>
 Description: A package to carry out a chemo-proteomics pipeline using experimental data. 
