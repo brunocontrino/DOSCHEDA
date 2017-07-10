@@ -358,17 +358,17 @@ ui <- shinyUI(dashboardPage(
 
                   ),
                   uiOutput("ui_choice"),
+                  radioButtons(inputId = "normalize",label = 'Choose Normalization', choices =
+                                 c("LOESS" = "loess",
+                                   "Median" = "median",
+                                   "None" = "none"),
+                               selected = 'loess'
+                  ),
                   conditionalPanel(condition = 'input.datype == "intensity"',
 
                                    uiOutput("ui_sequence"),
                                    uiOutput("ui_qual"),
-                                   numericInput('pearsvar',label = "Pearson Variable", value = 0.4,min = -1,max = 1,step = 0.1),
-                                   radioButtons(inputId = "normalize",label = 'Choose Normalization', choices =
-                                                  c("LOESS" = "loess",
-                                                    "Median" = "median",
-                                                    "None" = "none"),
-                                                selected = 'loess'
-                                                )
+                                   numericInput('pearsvar',label = "Pearson Variable", value = 0.4,min = -1,max = 1,step = 0.1)
 
 
                   ),
