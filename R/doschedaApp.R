@@ -8,10 +8,10 @@
 #' @import shinydashboard d3heatmap prodlim readxl
 #' @export
 doschedaApp <- function() {
-  appDir <- system.file("shiny-examples", "DOSCHEDA_App", package = "Doscheda")
-  if (appDir == "") {
-    stop("Could not find example directory. Try re-installing `Doscheda`.", call. = FALSE)
-  }
-
-  shiny::runApp(appDir, display.mode = "normal")
+    appDir <- system.file("shiny-examples", "DOSCHEDA_App", package = "Doscheda")
+    if (appDir == "") {
+        stop("Could not find example directory. Try re-installing `Doscheda`.", call. = FALSE)
+    }
+    
+    shiny::runApp(appDir, display.mode = "normal")
 }

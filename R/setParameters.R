@@ -16,16 +16,17 @@
 #' @param sigmoidConc vector of numerical values for concentrations of channels in the case of a sigmoidal fit
 #' @param pearsonThrshVal numerial value between -1 and 1 which determines the cut-off used to discard peptides during peptide removal
 #'
-#' @return  object of class ChemoProtSet
+#' @return  object of class ChemoProtSet 
+#' @seealso \code{\link{DoschedaSet}}
 #'
 #' @examples
-#' channelNames <- c("Abundance..F1..126..Control..REP_1",
-#'"Abundance..F1..127..Sample..REP_1",  "Abundance..F1..128..Sample..REP_1",
-#'"Abundance..F1..129..Sample..REP_1",  "Abundance..F1..130..Sample..REP_1",
-#'"Abundance..F1..131..Sample..REP_1",  "Abundance..F2..126..Control..REP_2",
-#'"Abundance..F2..127..Sample..REP_2", "Abundance..F2..128..Sample..REP_2",
-#'"Abundance..F2..129..Sample..REP_2",  "Abundance..F2..130..Sample..REP_2",
-#' "Abundance..F2..131..Sample..REP_2")
+#' channelNames <- c('Abundance..F1..126..Control..REP_1',
+#''Abundance..F1..127..Sample..REP_1',  'Abundance..F1..128..Sample..REP_1',
+#''Abundance..F1..129..Sample..REP_1',  'Abundance..F1..130..Sample..REP_1',
+#''Abundance..F1..131..Sample..REP_1',  'Abundance..F2..126..Control..REP_2',
+#''Abundance..F2..127..Sample..REP_2', 'Abundance..F2..128..Sample..REP_2',
+#''Abundance..F2..129..Sample..REP_2',  'Abundance..F2..130..Sample..REP_2',
+#' 'Abundance..F2..131..Sample..REP_2')
 #'
 #'ex <- new('ChemoProtSet')
 #'ex<- setParameters(x = ex,chansVal = 6, repsVal = 2,dataTypeStr = 'intensity',
@@ -37,42 +38,36 @@
 #' @export
 #' @docType methods
 #' @rdname setParameters-methods
-setGeneric(name="setParameters",
-           def=function(x,chansVal ,repsVal ,dataTypeStr, modelTypeStr, PDBool = TRUE, removePepsBool = NA, incPDofPDBool = FALSE, PDofPDname = NA,
-                        incGeneFileBool = FALSE, organismStr = 'h.sapiens', sigmoidConc = NA, pearsonThrshVal = 0.4)
-           {
-             standardGeneric("setParameters")
-           }
-)
+setGeneric(name = "setParameters", def = function(x, chansVal, repsVal, dataTypeStr, modelTypeStr, 
+    PDBool = TRUE, removePepsBool = NA, incPDofPDBool = FALSE, PDofPDname = NA, incGeneFileBool = FALSE, 
+    organismStr = "h.sapiens", sigmoidConc = NA, pearsonThrshVal = 0.4) {
+    standardGeneric("setParameters")
+})
 
 #' @rdname setParameters-methods
 #' @aliases setParameters,ANY,ANY-method
 #'
-setMethod(f="setParameters",
-          signature="ChemoProtSet",
-          definition=function(x, chansVal, repsVal, dataTypeStr, modelTypeStr, PDBool = TRUE, removePepsBool = NA, incPDofPDBool = FALSE, PDofPDname = NA, incGeneFileBool = FALSE, organismStr = 'h.sapiens', sigmoidConc = NA, pearsonThrshVal = 0.4)
-          {
-
-            if(dataTypeStr == "intensity"){
-
-              tempNames <-   paste("rep",rep(1:repsVal, each = chansVal),"_",
-                                   rep(paste("C",c("ontrol",0:(chansVal - 2)), sep = ""),repsVal),sep = "")
-
-
-
-            }else{
-              tempNames <-  paste("rep",rep(1:repsVal, each = chansVal),"_",
-                                  rep(paste("C",0:(chansVal - 1), sep = ""),repsVal),sep = "")
-
-            }
-
-            x@parameters <- list(chans = chansVal, reps = repsVal, dataType = dataTypeStr, modelType = modelTypeStr, chanNames = tempNames,
-                                 PD = PDBool, removePeps = removePepsBool, incPDofPD = incPDofPDBool, PDofPD = PDofPDname, incGeneFile = incGeneFileBool, organism = organismStr,
-                                 sigmoidConc = sigmoidConc, pearsonThrsh = pearsonThrshVal)
-
-            return(x)
-          }
-
-
-
-)
+setMethod(f = "setParameters", signature = "ChemoProtSet", definition = function(x, chansVal, repsVal, 
+    dataTypeStr, modelTypeStr, PDBool = TRUE, removePepsBool = NA, incPDofPDBool = FALSE, PDofPDname = NA, 
+    incGeneFileBool = FALSE, organismStr = "h.sapiens", sigmoidConc = NA, pearsonThrshVal = 0.4) {
+    
+    if (dataTypeStr == "intensity") {
+        
+        tempNames <- paste("rep", rep(1:repsVal, each = chansVal), "_", rep(paste("C", c("ontrol", 
+            0:(chansVal - 2)), sep = ""), repsVal), sep = "")
+        
+        
+        
+    } else {
+        tempNames <- paste("rep", rep(1:repsVal, each = chansVal), "_", rep(paste("C", 0:(chansVal - 
+            1), sep = ""), repsVal), sep = "")
+        
+    }
+    
+    x@parameters <- list(chans = chansVal, reps = repsVal, dataType = dataTypeStr, modelType = modelTypeStr, 
+        chanNames = tempNames, PD = PDBool, removePeps = removePepsBool, incPDofPD = incPDofPDBool, 
+        PDofPD = PDofPDname, incGeneFile = incGeneFileBool, organism = organismStr, sigmoidConc = sigmoidConc, 
+        pearsonThrsh = pearsonThrshVal)
+    
+    return(x)
+})

@@ -16,27 +16,19 @@
 #'ex <- fitModel(ex)
 #'meanSdPlot(ex)
 
-setGeneric(name="meanSdPlot",
-           def=function(x, ...)
-           {
-             standardGeneric("meanSdPlot")
-           }
-)
+setGeneric(name = "meanSdPlot", def = function(x, ...) {
+    standardGeneric("meanSdPlot")
+})
 
 #' @rdname meanSdPlot-methods
 #' @importFrom vsn meanSdPlot
 #' @import grDevices
 #' @aliases meanSdPlot,ANY,ANY-method
 #'
-setMethod(f= "meanSdPlot",
-          signature="ChemoProtSet",
-          definition=function(x, ...)
-          {
-            if(x@parameters$dataType =='linear'){
-              vsn::meanSdPlot(as.matrix(x@normData[,1:(x@parameters$chans * x@parameters$reps)]))
-            } else{
-              vsn::meanSdPlot(as.matrix(x@normData[,1:((x@parameters$chans - 1)* x@parameters$reps)]))
-            }
-          }
-
-)
+setMethod(f = "meanSdPlot", signature = "ChemoProtSet", definition = function(x, ...) {
+    if (x@parameters$dataType == "linear") {
+        vsn::meanSdPlot(as.matrix(x@normData[, 1:(x@parameters$chans * x@parameters$reps)]))
+    } else {
+        vsn::meanSdPlot(as.matrix(x@normData[, 1:((x@parameters$chans - 1) * x@parameters$reps)]))
+    }
+})

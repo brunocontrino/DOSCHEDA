@@ -11,12 +11,10 @@
 #' ex<- new('ChemoProtSet')
 #' makeReport(ex)
 #'}
-makeReport <- function(x){
-
-  temp <- system.file("rmd/report.Rmd", package="Doscheda")
-  params <- list(object = x)
-  rmarkdown::render(temp, output_file = "report.html", output_dir = '.',
-                    params = params,
-                    envir = new.env())
-
+makeReport <- function(x) {
+    
+    temp <- system.file("rmd/report.Rmd", package = "Doscheda")
+    params <- list(object = x)
+    rmarkdown::render(temp, output_file = "report.html", output_dir = ".", params = params, envir = new.env())
+    
 }

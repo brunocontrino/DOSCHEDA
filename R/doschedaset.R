@@ -10,41 +10,20 @@
 #' @exportClass ChemoProtSet
 #' @export
 #'
-DoschedaSet <- setClass(
-  # Set the name for the class
-  "ChemoProtSet",
-
-  # Define the slots
-  slots = c(
-    input = "data.frame",
-    normData = "data.frame",
-    finalData = 'data.frame',
-    parameters = 'list',
-    datasets = 'list'
-  ),
-
-  # Set the default values for the slots. (optional)
-  prototype=list(
-    input = data.frame(),
-    normData = data.frame(),
-    finalData = data.frame(),
-    parameters = list(chans = 3, reps = 2, chanNames = NA, PD = TRUE, dataType = 'LFC', modelType = 'linear', removePeps = NA, organism = 'h.sapiens', pearsonThrsh = 0.4 ),
-    datasets = list(GeneID = data.frame())
-
-  ),
-
-  validity=function(object)
-  {
-    if(!is.data.frame(object@input) ) {
-      return("Input data set is not a data.frame, please input a data.frame")
-    } else if (!is.data.frame(object@normData)){
-      return("Normalised data set is not a data.frame, please input a data.frame")
-    } else if (!is.data.frame(object@finalData)){
-      return("final data set is not a data.frame, please input a data.frame")
+DoschedaSet <- setClass("ChemoProtSet", slots = c(input = "data.frame", normData = "data.frame", 
+    finalData = "data.frame", parameters = "list", datasets = "list"), prototype = list(input = data.frame(), 
+    normData = data.frame(), finalData = data.frame(), parameters = list(chans = 3, reps = 2, chanNames = NA, 
+        PD = TRUE, dataType = "LFC", modelType = "linear", removePeps = NA, organism = "h.sapiens", 
+        pearsonThrsh = 0.4), datasets = list(GeneID = data.frame())), validity = function(object) {
+    if (!is.data.frame(object@input)) {
+        return("Input data set is not a data.frame, please input a data.frame")
+    } else if (!is.data.frame(object@normData)) {
+        return("Normalised data set is not a data.frame, please input a data.frame")
+    } else if (!is.data.frame(object@finalData)) {
+        return("final data set is not a data.frame, please input a data.frame")
     }
     return(TRUE)
-  }
-)
+})
 
 
 

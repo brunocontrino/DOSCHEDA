@@ -25,55 +25,50 @@
 #' @param geneIDFile data.frame containing a protein accession to gene ID conversion file
 #' @param normType string indicating the type of normalisation that should take place ('loess', 'median', 'none')
 #' @return  object of class ChemoProtSet
-#'
+#' @seealso \code{\link{DoschedaSet}}
+#' 
 #' @export
 #' @examples
-#' channelNames <- c("Abundance..F1..126..Control..REP_1",
-#'"Abundance..F1..127..Sample..REP_1",  "Abundance..F1..128..Sample..REP_1",
-#'"Abundance..F1..129..Sample..REP_1",  "Abundance..F1..130..Sample..REP_1",
-#'"Abundance..F1..131..Sample..REP_1",  "Abundance..F2..126..Control..REP_2",
-#'"Abundance..F2..127..Sample..REP_2", "Abundance..F2..128..Sample..REP_2",
-#'"Abundance..F2..129..Sample..REP_2",  "Abundance..F2..130..Sample..REP_2",
-#' "Abundance..F2..131..Sample..REP_2")
+#' channelNames <- c('Abundance..F1..126..Control..REP_1',
+#''Abundance..F1..127..Sample..REP_1',  'Abundance..F1..128..Sample..REP_1',
+#''Abundance..F1..129..Sample..REP_1',  'Abundance..F1..130..Sample..REP_1',
+#''Abundance..F1..131..Sample..REP_1',  'Abundance..F2..126..Control..REP_2',
+#''Abundance..F2..127..Sample..REP_2', 'Abundance..F2..128..Sample..REP_2',
+#''Abundance..F2..129..Sample..REP_2',  'Abundance..F2..130..Sample..REP_2',
+#' 'Abundance..F2..131..Sample..REP_2')
 #'
 #'ex <- runDoscheda(dataFrame = doschedaData, dataChannels = channelNames,
 #' chansVal = 6, repsVal = 2,dataTypeStr = 'intensity',
 #' modelTypeStr = 'linear',PDBool = FALSE,removePepsBool = FALSE,
-#' accessionChannel = "Master.Protein.Accessions",
-#' sequenceChannel = 'Sequence',qualityChannel = "Qvality.PEP",
+#' accessionChannel = 'Master.Protein.Accessions',
+#' sequenceChannel = 'Sequence',qualityChannel = 'Qvality.PEP',
 #' incPDofPDBool = FALSE, incGeneFileBool = FALSE,
 #'  organismStr = 'H.sapiens', pearsonThrshVal = 0.4)
 
-   runDoscheda <- function(dataFrame, dataChannels, accessionChannel, chansVal, repsVal, dataTypeStr, modelTypeStr, PDBool = TRUE,
-                              removePepsBool = NA, incPDofPDBool = FALSE, PDofPDname = NA,
-                              incGeneFileBool = FALSE, organismStr = 'h.sapiens', sigmoidConc = NA,
-                              pearsonThrshVal = 0.4,  uniquePeps = NA, sequenceChannel = NA,
-                              qualityChannel = NA, pdofpdChannel = NA, incGeneID = FALSE, geneIDFile = NA,
-                              normType = 'loess'){
-
-     ex <- new('ChemoProtSet')
-
-     ex<- setParameters(x = ex,chansVal = chansVal, repsVal = repsVal,
-                        dataTypeStr = dataTypeStr, modelTypeStr = modelTypeStr,
-                        PDBool = PDBool, removePepsBool = removePepsBool,
-                        incPDofPDBool = incPDofPDBool,PDofPDname =  PDofPDname,
-                        incGeneFileBool = incGeneFileBool, organismStr = organismStr,
-                        sigmoidConc = sigmoidConc, pearsonThrshVal = pearsonThrshVal)
-
-     ex<- setData(x = ex, dataFrame = dataFrame, dataChannels = dataChannels,
-                  accessionChannel = accessionChannel, uniquePeps = uniquePeps,
-                  sequenceChannel =  sequenceChannel, qualityChannel = qualityChannel,
-                  pdofpdChannel = pdofpdChannel, incGeneID =  incGeneFileBool,
-                  geneIDFile =  geneIDFile)
-
-     if(dataTypeStr  == 'intensity'){
-       ex <- removePeptides(ex, removePeps = removePepsBool)
-     }
-
-     ex <- runNormalisation(ex, normalise = normType)
-
-     ex <- fitModel(ex)
-
-     return(ex)
-   }
+runDoscheda <- function(dataFrame, dataChannels, accessionChannel, chansVal, repsVal, dataTypeStr, 
+    modelTypeStr, PDBool = TRUE, removePepsBool = NA, incPDofPDBool = FALSE, PDofPDname = NA, incGeneFileBool = FALSE, 
+    organismStr = "h.sapiens", sigmoidConc = NA, pearsonThrshVal = 0.4, uniquePeps = NA, sequenceChannel = NA, 
+    qualityChannel = NA, pdofpdChannel = NA, incGeneID = FALSE, geneIDFile = NA, normType = "loess") {
+    
+    ex <- new("ChemoProtSet")
+    
+    ex <- setParameters(x = ex, chansVal = chansVal, repsVal = repsVal, dataTypeStr = dataTypeStr, 
+        modelTypeStr = modelTypeStr, PDBool = PDBool, removePepsBool = removePepsBool, incPDofPDBool = incPDofPDBool, 
+        PDofPDname = PDofPDname, incGeneFileBool = incGeneFileBool, organismStr = organismStr, sigmoidConc = sigmoidConc, 
+        pearsonThrshVal = pearsonThrshVal)
+    
+    ex <- setData(x = ex, dataFrame = dataFrame, dataChannels = dataChannels, accessionChannel = accessionChannel, 
+        uniquePeps = uniquePeps, sequenceChannel = sequenceChannel, qualityChannel = qualityChannel, 
+        pdofpdChannel = pdofpdChannel, incGeneID = incGeneFileBool, geneIDFile = geneIDFile)
+    
+    if (dataTypeStr == "intensity") {
+        ex <- removePeptides(ex, removePeps = removePepsBool)
+    }
+    
+    ex <- runNormalisation(ex, normalise = normType)
+    
+    ex <- fitModel(ex)
+    
+    return(ex)
+}
 
