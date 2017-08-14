@@ -25,3 +25,6 @@ ex <- new('ChemoProtSet')
 getParameters(ex)
 
 }
+\seealso{
+\code{\link{DoschedaSet}}
+}

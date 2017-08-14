@@ -33,3 +33,6 @@ ex <- fitModel(ex)
 pcaPlot(ex)
 
 }
+\seealso{
+\code{\link{DoschedaSet}}
+}

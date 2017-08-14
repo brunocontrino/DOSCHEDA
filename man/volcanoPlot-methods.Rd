@@ -36,3 +36,6 @@ ex <- fitModel(ex)
 volcanoPlot(ex)
 
 }
+\seealso{
+\code{\link{DoschedaSet}}
+}

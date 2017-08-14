@@ -27,13 +27,13 @@ Method to remove peptides from input data of an object of class 'ChemoProtSet'
 }
 \examples{
 \dontrun{
-channelNames <- c("Abundance..F1..126..Control..REP_1",
-"Abundance..F1..127..Sample..REP_1",  "Abundance..F1..128..Sample..REP_1",
- "Abundance..F1..129..Sample..REP_1",  "Abundance..F1..130..Sample..REP_1",
-"Abundance..F1..131..Sample..REP_1",  "Abundance..F2..126..Control..REP_2",
-"Abundance..F2..127..Sample..REP_2", "Abundance..F2..128..Sample..REP_2",
-"Abundance..F2..129..Sample..REP_2",  "Abundance..F2..130..Sample..REP_2",
-"Abundance..F2..131..Sample..REP_2")
+channelNames <- c('Abundance..F1..126..Control..REP_1',
+'Abundance..F1..127..Sample..REP_1',  'Abundance..F1..128..Sample..REP_1',
+ 'Abundance..F1..129..Sample..REP_1',  'Abundance..F1..130..Sample..REP_1',
+'Abundance..F1..131..Sample..REP_1',  'Abundance..F2..126..Control..REP_2',
+'Abundance..F2..127..Sample..REP_2', 'Abundance..F2..128..Sample..REP_2',
+'Abundance..F2..129..Sample..REP_2',  'Abundance..F2..130..Sample..REP_2',
+'Abundance..F2..131..Sample..REP_2')
 ex <- new('ChemoProtSet')
 ex<- setParameters(x = ex,chansVal = 6, repsVal = 2,
 dataTypeStr = 'intensity', modelTypeStr = 'linear',
@@ -43,10 +43,13 @@ dataTypeStr = 'intensity', modelTypeStr = 'linear',
 
 ex<- setData(x = ex, dataFrame = doschedaData,
  dataChannels = channelNames,
- accessionChannel = "Master.Protein.Accessions",
+ accessionChannel = 'Master.Protein.Accessions',
   sequenceChannel = 'Sequence',
-  qualityChannel = "Qvality.PEP" )
+  qualityChannel = 'Qvality.PEP' )
 ex <- removePeptides(ex,removePeps = FALSE)
 ex
 }
+}
+\seealso{
+\code{\link{DoschedaSet}}
 }

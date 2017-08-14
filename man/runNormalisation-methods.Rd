@@ -28,3 +28,6 @@ ex <- runNormalisation(ex)
 ex
 
 }
+\seealso{
+\code{\link{DoschedaSet}}
+}
