@@ -8,7 +8,7 @@ output:
 vignette: >
   %\VignetteIndexEntry{Doscheda}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
 
 # Introduction 
@@ -18,7 +18,8 @@ A generous number of computational tools has been developed for MS-spectral anal
 The Doscheda package focuses on quantitative chemoproteomics used to determine protein interaction profiles of small molecules from whole cell or tissue lysates. Chemoproteomics includes inverse competition-based experiments that, in combination with quantitative MS (e.g. tandem mass tags (TMT) or isobaric tag for relative quantification (iTRAQ)), are used for rank-ordering of small molecule-protein interactions by binding affinity. (Bantscheff M, 2012)
 Doscheda is designed to facilitate chemoproteomics data analysis with a simple pipeline and a Shiny application that will allow scientists with limited computational background to carry out their own analysis.
 
-This package has been developed as a supplement to the original Doscheda shiny app. For detailed documentation on the app please visit: https://brunocontrino.github.io/DOSCHEDA/#doscheda_manual
+This package has been developed as a supplement to the original Doscheda shiny app. For detailed documentation on the app please visit: 
+https://brunocontrino.github.io/DOSCHEDA_APP/
 
 
   
@@ -57,6 +58,7 @@ modelTypeStr string describing the type of model applied. This can be 'linear' f
     
     + ***organismStr*** string giving the name of organism. the options are: 'H.sapiens', 'D. melanogaster', 'C. elegans', 'R. norvegicus', 'M. musculus'. This is only needed if PDbool is FALSE
     
+  
     + ***sigmoidConc*** vector of numerical values for concentrations of channels in the case of a sigmoidal fit
     
     + ***pearsonThrshVal*** numerical value between -1 and 1 which determines the cut-off used to discard peptides during peptide removal
@@ -91,7 +93,8 @@ dataTypeStr = 'intensity', modelTypeStr = 'linear',
   To run the pipeline one must attach a data set to the input slot of a `ChemoProtSet` object. To do so the data set can be read into the global R environment. The user should ensure that the data is of class 'data.frame' then the setData method called on the data set. 
   
 ```{r setDataEx, eval = TRUE}
-ex<- setData(x = ex, dataFrame = doschedaData,
+
+ex<- setData(x = ex, dataFrame = Doscheda::doschedaData,
   dataChannels = channelNames,
   accessionChannel = "Master.Protein.Accessions",
    sequenceChannel = 'Sequence',
@@ -158,7 +161,7 @@ One can analyse the significance of each parameter by looking at its associated 
 ##runDoscheda
 This is a wrapper function which will carry out the entire Doscheda pipeline without the user having to do all the steps explained above, however this will not have the same level of flexibility and will re-run the entire pipeline every time it is run. 
 
-```{runDosEx, eval = FALSE}
+```{r runDosEx, eval = FALSE}
 
  channelNames <- c("Abundance..F1..126..Control..REP_1",
 "Abundance..F1..127..Sample..REP_1",  "Abundance..F1..128..Sample..REP_1",
@@ -284,7 +287,7 @@ ex
 
 # Shiny Application
 
-By running `doschedaApp()` the original shiny application that the package is based on. To view detailed documentation on the application please visit:  https://brunocontrino.github.io/DOSCHEDA/#doscheda_manual
+By running `doschedaApp()` the original shiny application that the package is based on. To view detailed documentation on the application please visit:  https://brunocontrino.github.io/DOSCHEDA_APP/
 
 # References 
 
