@@ -358,17 +358,17 @@ ui <- shinyUI(dashboardPage(
 
                   ),
                   uiOutput("ui_choice"),
-                  radioButtons(inputId = "normalize",label = 'Choose Normalization', choices =
-                                 c("LOESS" = "loess",
-                                   "Median" = "median",
-                                   "None" = "none"),
-                               selected = 'loess'
-                  ),
                   conditionalPanel(condition = 'input.datype == "intensity"',
 
                                    uiOutput("ui_sequence"),
                                    uiOutput("ui_qual"),
-                                   numericInput('pearsvar',label = "Pearson Variable", value = 0.4,min = -1,max = 1,step = 0.1)
+                                   numericInput('pearsvar',label = "Pearson Variable", value = 0.4,min = -1,max = 1,step = 0.1),
+                                   radioButtons(inputId = "normalize",label = 'Choose Normalization', choices =
+                                                  c("LOESS" = "loess",
+                                                    "Median" = "median",
+                                                    "None" = "none"),
+                                                selected = 'loess'
+                                                )
 
 
                   ),
@@ -1171,7 +1171,7 @@ uploadVenn <- reactive({
 
       if(input$dorem == "no"){
 
-        if(input$reps == 1 & input$modtyp == 'sigmoid'){
+        if(input$reps == 1){
           if(input$incpd == TRUE){
             prot1 <- unique(newdf$Accession)
             sumkd <- rep(0,length(prot1))
@@ -1736,7 +1736,7 @@ uploadVenn <- reactive({
           tmp<-data.merged[,1:input$chans]
           tf <- as.data.frame(lapply(tmp, function(x) (is.na(x))))
           countsNAs<-as.data.frame(apply(tf,1,function(x)table(x)["TRUE"]))
-          n_of_miss<-as.data.frame(as.numeric(str_replace_all(as.list(countsNAs[,1]),"NA",0)))
+          n_of_miss<-as.data.frame(as.numeric(str_replace_all(as.list(countsNAs[,1]),"NA",'0')))
           data.merged <- data.frame(data.merged,n_of_miss)
           colnames(data.merged)<-c( final.Names,
                                     "Accession", "GeneID","UniquePeps",'Kd', "MissingVal")
@@ -1752,14 +1752,14 @@ uploadVenn <- reactive({
           #
           #
           if(input$normalize == 'loess' ){
-            data.merged <- data.frame((normalize.loess(2^(data.merged[,channels()]))),
+            data.merged <- data.frame(log2(normalize.loess(2^(data.merged[,channels()]))),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
                                       UniquePeps=data.merged$UniquePeps,
                                       Kd = 1 / data.merged$Kd,
                                       MissingVal=data.merged$MissingVal)
           }else if(input$normalize == 'median'){
-            data.merged <- data.frame(((2^(data.merged[,channels()]))) /
+            data.merged <- data.frame(log2((2^(data.merged[,channels()]))) /
                                         apply((2^(data.merged[,channels()])),2,median),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
@@ -1800,7 +1800,7 @@ uploadVenn <- reactive({
           tmp<-data.merged[,1:input$chans]
           tf <- as.data.frame(lapply(tmp, function(x) (is.na(x))))
           countsNAs<-as.data.frame(apply(tf,1,function(x)table(x)["TRUE"]))
-          n_of_miss<-as.data.frame(as.numeric(str_replace_all(as.list(countsNAs[,1]),"NA",0)))
+          n_of_miss<-as.data.frame(as.numeric(str_replace_all(as.list(countsNAs[,1]),"NA",'0')))
           data.merged <- data.frame(data.merged,n_of_miss)
           colnames(data.merged)<-c( final.Names,
                                     "Accession", "GeneID","UniquePeps","MissingVal")
@@ -1816,21 +1816,21 @@ uploadVenn <- reactive({
           #
           #
           if(input$normalize == 'loess'){
-            data.merged <- data.frame((normalize.loess(2^(data.merged[,channels()]))),
+            data.merged <- data.frame(log2(normalize.loess(2^(data.merged[,channels()]))),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
                                       UniquePeps=data.merged$UniquePeps,
                                       MissingVal=data.merged$MissingVal)
 
           }else if (input$normalize == 'median'){
-            data.merged <- data.frame(((2^(data.merged[,channels()])) /
+            data.merged <- data.frame(log2((2^(data.merged[,channels()])) /
                                          apply((2^(data.merged[,channels()])),2,median)),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
                                       UniquePeps=data.merged$UniquePeps,
                                       MissingVal=data.merged$MissingVal)
           }else{
-            data.merged <- data.frame((2^(data.merged[,channels()])),
+            data.merged <- data.frame(log2(2^(data.merged[,channels()])),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
                                       UniquePeps=data.merged$UniquePeps,
@@ -1976,7 +1976,7 @@ uploadVenn <- reactive({
           tmp<-data.merged[,1:(input$chans -1 )]
           tf <- as.data.frame(lapply(tmp, function(x) (is.na(x))))
           countsNAs<-as.data.frame(apply(tf,1,function(x)table(x)["TRUE"]))
-          n_of_miss<-as.data.frame(as.numeric(str_replace_all(as.list(countsNAs[,1]),"NA",0)))
+          n_of_miss<-as.data.frame(as.numeric(str_replace_all(as.list(countsNAs[,1]),"NA",'0')))
           data.merged <- data.frame(data.merged,n_of_miss)
           colnames(data.merged)<-c( final.Names,
                                     "Accession", "GeneID","UniquePeps",'Kd',"MissingVal")
@@ -1992,21 +1992,21 @@ uploadVenn <- reactive({
           #
           #
           if(input$normalize == 'loess'){
-            data.merged <- data.frame((normalize.loess(2^(data.merged[,1:(input$chans -1)]))),
+            data.merged <- data.frame(log2(normalize.loess(2^(data.merged[,1:(input$chans -1)]))),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
                                       UniquePeps=data.merged$UniquePeps,
                                       Kd = data.merged$Kd
             )
           }else if(input$normalize == 'median'){
-            data.merged <- data.frame(((2^(data.merged[,1:(input$chans -1)]))/ (apply((2^(data.merged[,1:(input$chans -1)])),2,median))),
+            data.merged <- data.frame(log2((2^(data.merged[,1:(input$chans -1)]))/ (apply((2^(data.merged[,1:(input$chans -1)])),2,median))),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
                                       UniquePeps=data.merged$UniquePeps,
                                       Kd = data.merged$Kd
             )
           }else{
-            data.merged <- data.frame((2^(data.merged[,1:(input$chans -1)])),
+            data.merged <- data.frame(log2(2^(data.merged[,1:(input$chans -1)])),
             Accession=data.merged$Accession,
             GeneID=data.merged$GeneID,
             UniquePeps=data.merged$UniquePeps,
@@ -2030,7 +2030,7 @@ uploadVenn <- reactive({
           tmp<-data.merged[,1:(input$chans -1 )]
           tf <- as.data.frame(lapply(tmp, function(x) (is.na(x))))
           countsNAs<-as.data.frame(apply(tf,1,function(x)table(x)["TRUE"]))
-          n_of_miss<-as.data.frame(as.numeric(str_replace_all(as.list(countsNAs[,1]),"NA",0)))
+          n_of_miss<-as.data.frame(as.numeric(str_replace_all(as.list(countsNAs[,1]),"NA",'0')))
           data.merged <- data.frame(data.merged,n_of_miss)
           colnames(data.merged)<-c( final.Names,
                                     "Accession", "GeneID","UniquePeps","MissingVal")
@@ -2046,18 +2046,18 @@ uploadVenn <- reactive({
           #
           #
           if(input$normalize == 'loess'){
-            data.merged <- data.frame((normalize.loess(2^(data.merged[,1:(input$chans -1)]))),
+            data.merged <- data.frame(log2(normalize.loess(2^(data.merged[,1:(input$chans -1)]))),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
                                       UniquePeps=data.merged$UniquePeps)
           }else if(input$normalize == 'median'){
-            data.merged <- data.frame(((2^(data.merged[,1:(input$chans -1)])) /
-                                         apply((2^(data.merged[,1:(input$chans -1)])),2,median)),
+            data.merged <- data.frame(log2(((2^(data.merged[,1:(input$chans -1)])) /
+                                         apply((2^(data.merged[,1:(input$chans -1)])),2,median))),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
                                       UniquePeps=data.merged$UniquePeps)
           }else{
-            data.merged <- data.frame(((2^(data.merged[,1:(input$chans -1)]))),
+            data.merged <- data.frame(log2(((2^(data.merged[,1:(input$chans -1)])))),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
                                       UniquePeps=data.merged$UniquePeps)
@@ -2750,7 +2750,7 @@ uploadVenn <- reactive({
 
     data.merged<- dataMerge()
     # print(colnames(data.merged))
-    meanSdPlot(as.matrix(data.merged[,1:length(vec)]))
+    vsn::meanSdPlot(as.matrix(data.merged[,1:length(vec)]))
   })
 
   output$plot4<- renderPlot({
@@ -2947,7 +2947,7 @@ uploadVenn <- reactive({
   output$plot6<- renderPlot({
 
     req(data())
-    if(input$modtyp == 'sigmoid'){
+    if(input$modtyp == 'sigmoid' | input$reps == 1){
       plot.new()
       title(main = 'Plot not available: only 1 replicate')
     }else{
