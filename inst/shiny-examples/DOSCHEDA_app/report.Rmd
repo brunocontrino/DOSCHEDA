@@ -23,6 +23,7 @@ params:
 ```{r packageload, echo = FALSE, warning=FALSE}
  
 library(hexbin)
+library(vsn)
 library(limma)
 library(knitr)
 if(params$datype == 'lFC'){
@@ -196,7 +197,7 @@ The venn diagram shows the intersection of the kinome and the inputted proteins.
  
 ```{r meansd, echo = FALSE}
  
-meanSdPlot(as.matrix(data.merged1[,1:length(vec)]))
+vsn::meanSdPlot(as.matrix(data.merged1[,1:length(vec)]))
  
 ```
  

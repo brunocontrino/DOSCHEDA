@@ -358,17 +358,17 @@ ui <- shinyUI(dashboardPage(
 
                   ),
                   uiOutput("ui_choice"),
+                  radioButtons(inputId = "normalize",label = 'Choose Normalization', choices =
+                                 c("LOESS" = "loess",
+                                   "Median" = "median",
+                                   "None" = "none"),
+                               selected = 'loess'
+                  ),
                   conditionalPanel(condition = 'input.datype == "intensity"',
 
                                    uiOutput("ui_sequence"),
                                    uiOutput("ui_qual"),
-                                   numericInput('pearsvar',label = "Pearson Variable", value = 0.4,min = -1,max = 1,step = 0.1),
-                                   radioButtons(inputId = "normalize",label = 'Choose Normalization', choices =
-                                                  c("LOESS" = "loess",
-                                                    "Median" = "median",
-                                                    "None" = "none"),
-                                                selected = 'loess'
-                                                )
+                                   numericInput('pearsvar',label = "Pearson Variable", value = 0.4,min = -1,max = 1,step = 0.1)
 
 
                   ),
@@ -1759,8 +1759,9 @@ uploadVenn <- reactive({
                                       Kd = 1 / data.merged$Kd,
                                       MissingVal=data.merged$MissingVal)
           }else if(input$normalize == 'median'){
-            data.merged <- data.frame(log2((2^(data.merged[,channels()]))) /
-                                        apply((2^(data.merged[,channels()])),2,median),
+            
+            data.merged <- data.frame(log2((2^(data.merged[,channels()])) /
+                                        apply((2^(data.merged[,channels()])),2,median)),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
                                       UniquePeps=data.merged$UniquePeps,
@@ -1916,7 +1917,8 @@ uploadVenn <- reactive({
                                     MissingVal=data.merged$MissingVal)
 
         }else if(input$normalize == 'median'){
-          data.merged <- data.frame(log2(((2^(data.merged[,channels()])) / apply((2^(data.merged[,channels()])),2,median))),
+          data.merged <- data.frame(log2(((2^(data.merged[,channels()])) /
+                                            apply((2^(data.merged[,channels()])),2,median))),
                                     Accession=data.merged$Accession,
                                     GeneID=data.merged$GeneID,
                                     UniquePeps=data.merged$UniquePeps,
@@ -1999,7 +2001,8 @@ uploadVenn <- reactive({
                                       Kd = data.merged$Kd
             )
           }else if(input$normalize == 'median'){
-            data.merged <- data.frame(log2((2^(data.merged[,1:(input$chans -1)]))/ (apply((2^(data.merged[,1:(input$chans -1)])),2,median))),
+            data.merged <- data.frame(log2((2^(data.merged[,1:(input$chans -1)]))/ 
+                                             (apply((2^(data.merged[,1:(input$chans -1)])),2,median))),
                                       Accession=data.merged$Accession,
                                       GeneID=data.merged$GeneID,
                                       UniquePeps=data.merged$UniquePeps,
