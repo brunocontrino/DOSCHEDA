@@ -1,7 +1,7 @@
 Package: Doscheda
 Type: Package
 Title: A DownStream Chemo-Proteomics Analysis Pipeline
-Version: 0.99.5
+Version: 0.99.6
 Author: Bruno Contrino, Piero Ricchiuto
 Maintainer: Bruno Contrino <br1contrino@yahoo.co.uk>
 Description: Doscheda focuses on quantitative chemoproteomics used to determine protein interaction profiles of small molecules from whole cell or tissue lysates using Mass Spectrometry data. The package provides a shiny application to run the pipeline, several visualisations and a downloadable report of an experiment. 
