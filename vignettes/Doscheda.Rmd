@@ -4,7 +4,7 @@ author:
 - "Bruno Contrino"
 - "Piero Ricchiuto"
 output:  
-  BiocStyle::html_document2
+  BiocStyle::html_document
 vignette: >
   %\VignetteIndexEntry{Doscheda}
   %\VignetteEngine{knitr::rmarkdown}
