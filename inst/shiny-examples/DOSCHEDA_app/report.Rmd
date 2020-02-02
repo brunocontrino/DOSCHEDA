@@ -281,7 +281,7 @@ if( params$datype == 'intensity'){
     reps <- params$reps
     index <- params$channel
 
-    pca <- prcomp(su[,1:length(index)], scale=F)
+    pca <- prcomp(su[,1:length(index)], scale = FALSE)
     
     DTA<-data.frame( as.numeric(t(su[,1:length(index)])%*%pca$x[,1]),
                      as.numeric(t(su[,1:length(index)])%*%pca$x[,2]))
@@ -498,7 +498,7 @@ res<- data.merged2
              paste("P.Value", params$pvalsli,"& AvgFC >", params$avthrsli, sep="") #green
            ),
            col=c("black","red","orange","green"),
-           horiz=F, pch=c(19))
+           horiz=FALSE, pch=c(19))
     # legend("topright", inset=c(-0.4,0.1), title="Legend",cex = 0.7,
     #        c("Not significant",
     #          "P.Value<.05", #red
@@ -734,7 +734,7 @@ if(params$sigmodin != 'sigmoid'){
         
         #Here make the subselections for using the ggplot functions SLOPE
         slope<-na.omit(data_merged_2[data_merged_2$SlopePval<0.05 ,])
-        slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = F),][1:top,])
+        slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = FALSE),][1:top,])
         if(nrow(slope_ordered)>0){
           slope_pred<-shape_for_ggplot_pred(slope_ordered,log10(conc),pred.names)
           slope_perc<- shape_for_ggplot_perc(slope_ordered,log10(conc),final.Names)
@@ -754,7 +754,7 @@ if(params$sigmodin != 'sigmoid'){
 
     #Here make the subselections for using the ggplot functions SLOPE
     slope<-na.omit(data_merged_2[data_merged_2$SlopePval<0.05 ,])
-    slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = F),][1:top,])
+    slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = FALSE),][1:top,])
     if(nrow(slope_ordered)>0){
       slope_pred<-shape_for_ggplot_pred(slope_ordered,log10(conc),pred.names)
       slope_perc<- shape_for_ggplot_perc(slope_ordered,log10(conc),final.Names)
@@ -808,7 +808,7 @@ The top 15 protein profiles with a significant slope parameter of the sigmoidal 
  #                                                 & data_merged_2$predX1-data_merged_2[,paste0('predX',(params$chans - 1))] >0 & data_merged_2$predX1 <= 100,]))
  #        
  #        
- #        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = F),][1:top,])
+ #        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = FALSE),][1:top,])
  #        
  #        if(nrow(RB50_ordered)>0){
  #          RB50_pred<-shape_for_ggplot_pred(RB50_ordered,log10(conc),pred.names)
@@ -835,7 +835,7 @@ The top 15 protein profiles with a significant slope parameter of the sigmoidal 
  #                                             & data_merged_2$predX1-data_merged_2[,paste0('predX',(params$chans-1))] >0 & data_merged_2$predX1 <= 100,]))
  #    
  #    
- #    RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = F),][1:top,])
+ #    RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = FALSE),][1:top,])
  #    
  #    if(nrow(RB50_ordered)>0){
  #      RB50_pred<-shape_for_ggplot_pred(RB50_ordered,log10(conc),pred.names)
@@ -874,7 +874,7 @@ The top 15 protein profiles with a significant slope parameter of the sigmoidal 
                                                  & data_merged_2$predX1-data_merged_2[,paste0('predX',(params$chans - 1))] >0 & data_merged_2$predX1 <= 100,]))
         
         
-        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = F),][1:top,])
+        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = FALSE),][1:top,])
         
         if(nrow(RB50_ordered)>0){
           RB50_pred<-shape_for_ggplot_pred(RB50_ordered,log10(conc),pred.names)
@@ -905,7 +905,7 @@ The top 15 protein profiles with a significant slope parameter of the sigmoidal 
                                                  & data_merged_2$predX1-data_merged_2$predX9 >0 & data_merged_2$predX1 <= 100,]))
         
         
-        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = F),][1:top,])
+        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = FALSE),][1:top,])
         
         if(nrow(RB50_ordered)>0){
           RB50_pred<-shape_for_ggplot_pred(RB50_ordered,log10(conc),pred.names)

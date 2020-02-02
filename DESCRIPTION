@@ -1,12 +1,12 @@
 Package: Doscheda
 Type: Package
 Title: A DownStream Chemo-Proteomics Analysis Pipeline
-Version: 1.1.1
+Version: 1.2.2
 Author: Bruno Contrino, Piero Ricchiuto
 Maintainer: Bruno Contrino <br1contrino@yahoo.co.uk>
 Description: Doscheda focuses on quantitative chemoproteomics used to determine protein interaction profiles of small molecules from whole cell or tissue lysates using Mass Spectrometry data. The package provides a shiny application to run the pipeline, several visualisations and a downloadable report of an experiment. 
 License: GPL-3
-Depends: R (>= 3.4) 	
+Depends: R (>= 3.6) 	
 Imports: methods, drc, stats, httr, jsonlite, reshape2 , vsn, affy, limma, stringr, ggplot2, graphics, grDevices, calibrate, corrgram, gridExtra, DT, shiny, shinydashboard, readxl, d3heatmap, prodlim, matrixStats
 biocViews: Proteomics, Normalization, Preprocessing, MassSpectrometry, QualityControl, DataImport, Regression
 Suggests: BiocStyle, knitr, rmarkdown, testthat
@@ -14,4 +14,3 @@ VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-
