@@ -119,7 +119,7 @@ uniprotGene <- function(organism) {
     <constraint path=\"Protein.organism.shortName\" op=\"=\" value=\"H. sapiens\" code=\"A\" />
     </query>"
         
-        ret = httr::POST("http://www.humanmine.org/humanmine/service/query/results", body = list(query = query, 
+        ret = httr::POST("https://www.humanmine.org/humanmine/service/query/results", body = list(query = query, 
             format = "json"), encode = "form")
     } else if (organism == "D.melanogaster") {
         
@@ -127,28 +127,28 @@ uniprotGene <- function(organism) {
     <constraint path=\"Protein.organism.shortName\" op=\"=\" value=\"D. melanogaster\" code=\"A\" />
     </query>"
         
-        ret = httr::POST("http://www.flymine.org/flymine/service/query/results", body = list(query = query, 
+        ret = httr::POST("https://www.flymine.org/flymine/service/query/results", body = list(query = query, 
             format = "json"), encode = "form")
         
     } else if (organism == "M.musculus") {
         query = "<query model=\"genomic\" view=\"Protein.primaryAccession Protein.uniprotAccession Protein.genes.symbol\" sortOrder=\"Protein.primaryAccession ASC\" >
     <constraint path=\"Protein.organism.shortName\" op=\"=\" value=\"M. musculus\" code=\"A\" />
     </query>"
-        ret = httr::POST("http://www.mousemine.org/mousemine/service/query/results", body = list(query = query, 
+        ret = httr::POST("https://www.mousemine.org/mousemine/service/query/results", body = list(query = query, 
             format = "json"), encode = "form")
     } else if (organism == "R.norvegicus") {
         query = "<query model=\"genomic\" view=\"Protein.primaryAccession Protein.uniprotAccession Protein.genes.symbol\" sortOrder=\"Protein.primaryAccession ASC\" >
     <constraint path=\"Protein.organism.shortName\" op=\"=\" value=\"R. norvegicus\" code=\"A\" />
     </query>"
         
-        ret = httr::POST("http://www.ratmine.org/ratmine/service/query/results", body = list(query = query, 
+        ret = httr::POST("https://www.ratmine.org/ratmine/service/query/results", body = list(query = query, 
             format = "json"), encode = "form")
     } else {
         query = "<query model=\"genomic\" view=\"Protein.primaryAccession Protein.uniprotAccession Protein.genes.symbol\" sortOrder=\"Protein.primaryAccession ASC\" >
     <constraint path=\"Protein.organism.shortName\" op=\"=\" value=\"C. elegans\" code=\"A\" />
     </query>"
         
-        ret = httr::POST("http://www.humanmine.org/humanmine/service/query/results", body = list(query = query, 
+        ret = httr::POST("https://www.humanmine.org/humanmine/service/query/results", body = list(query = query, 
             format = "json"), encode = "form")
     }
     

@@ -2237,7 +2237,7 @@ server <- shinyServer(function(input, output) {
                                       na.action = na.omit,
                                       control = drmc(constr = FALSE, errorm = FALSE, noMessage = TRUE, maxIt = 1000, relTol = 1e-06),
                                       fct = LL.4(fixed=c(NA, NA, NA, NA), #see note @top this file
-                                                 names = c("Slope", "Lower Limit", "Upper Limit", "RB50"))),silent = T)
+                                                 names = c("Slope", "Lower Limit", "Upper Limit", "RB50"))),silent = TRUE)
             
           }
           
@@ -2245,7 +2245,7 @@ server <- shinyServer(function(input, output) {
           for(i in 1:length(ryegrass.m1)){
             #print(i)
             #checking_val if FALSE  the model has failed to calculate the pval
-            checking_val<-try(is.numeric(coefficients(ryegrass.m1[[i]])[["Slope:(Intercept)"]]),silent = T)
+            checking_val<-try(is.numeric(coefficients(ryegrass.m1[[i]])[["Slope:(Intercept)"]]),silent = TRUE)
             
             if(checking_val=="TRUE"){
               #print(checking_val)
@@ -2354,7 +2354,7 @@ server <- shinyServer(function(input, output) {
                                       na.action = na.omit,
                                       control = drmc(constr = FALSE, errorm = FALSE, noMessage = TRUE, maxIt = 1000, relTol = 1e-06),
                                       fct = LL.4(fixed=c(NA, NA, NA, NA), #see note @top this file
-                                                 names = c("Slope", "Lower Limit", "Upper Limit", "RB50"))),silent = T)
+                                                 names = c("Slope", "Lower Limit", "Upper Limit", "RB50"))),silent = TRUE)
             
           }
           
@@ -2362,7 +2362,7 @@ server <- shinyServer(function(input, output) {
           for(i in 1:length(ryegrass.m1)){
             #print(i)
             #checking_val if FALSE  the model has failed to calculate the pval
-            checking_val<-try(is.numeric(coefficients(ryegrass.m1[[i]])[["Slope:(Intercept)"]]),silent = T)
+            checking_val<-try(is.numeric(coefficients(ryegrass.m1[[i]])[["Slope:(Intercept)"]]),silent = TRUE)
             
             if(checking_val=="TRUE"){
               #print(checking_val)
@@ -2485,7 +2485,7 @@ server <- shinyServer(function(input, output) {
                                     na.action = na.omit,
                                     control = drmc(constr = FALSE, errorm = FALSE, noMessage = TRUE, maxIt = 1000, relTol = 1e-06),
                                     fct = LL.4(fixed=c(NA, NA, NA, NA), #see note @top this file
-                                               names = c("Slope", "Lower Limit", "Upper Limit", "RB50"))),silent = T)
+                                               names = c("Slope", "Lower Limit", "Upper Limit", "RB50"))),silent = TRUE)
           
         }
         
@@ -2493,7 +2493,7 @@ server <- shinyServer(function(input, output) {
         for(i in 1:length(ryegrass.m1)){
           #print(i)
           #checking_val if FALSE  the model has failed to calculate the pval
-          checking_val<-try(is.numeric(coefficients(ryegrass.m1[[i]])[["Slope:(Intercept)"]]),silent = T)
+          checking_val<-try(is.numeric(coefficients(ryegrass.m1[[i]])[["Slope:(Intercept)"]]),silent = TRUE)
           
           if(checking_val=="TRUE"){
             #print(checking_val)
@@ -2861,7 +2861,7 @@ server <- shinyServer(function(input, output) {
              paste("P.Value", input$pvalsli,"& AvgFC >", input$avthrssli, sep="") #green
            ),
            col=c("black","red","orange","green"),
-           horiz=F, pch=c(19))
+           horiz=FALSE, pch=c(19))
     
     
     
@@ -2897,7 +2897,7 @@ server <- shinyServer(function(input, output) {
              paste("P.Value", input$pvalsli,"& AvgFC >", input$avthrssli, sep="") #green
            ),
            col=c("black","red","orange","green"),
-           horiz=F, pch=c(19))
+           horiz=FALSE, pch=c(19))
     
     
     
@@ -3038,7 +3038,7 @@ server <- shinyServer(function(input, output) {
     print(.libPaths())
     print(all.equal(1:nchan,index))
     print(input$reps)
-    pca <- prcomp(su[,1:length(index)], scale=F)
+    pca <- prcomp(su[,1:length(index)], scale=FALSE)
     
     DTA<-data.frame( as.numeric(t(su[,1:length(index)])%*%pca$x[,1]),
                      as.numeric(t(su[,1:length(index)])%*%pca$x[,2]))
@@ -3100,7 +3100,7 @@ server <- shinyServer(function(input, output) {
                paste("P.Value", input$pvalsli,"& AvgFC >", input$avthrssli, sep="") #green
              ),
              col=c("black","red","orange","green"),
-             horiz=F, pch=c(19))
+             horiz=FALSE, pch=c(19))
     }
   })
   
@@ -3226,7 +3226,7 @@ server <- shinyServer(function(input, output) {
                                                  & data_merged_2$predX1-data_merged_2[,paste("predX",(input$chans - 1),sep = "")] >0 & data_merged_2$predX1 <= 100,]))
         
         
-        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = F),][1:top,])
+        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = FALSE),][1:top,])
         
         
       } else{
@@ -3241,7 +3241,7 @@ server <- shinyServer(function(input, output) {
                                                  & data_merged_2$predX1-data_merged_2[,paste("predX",input$chans,sep = "")] >0 & data_merged_2$predX1 <= 100,]))
         
         
-        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = F),][1:top,])
+        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = FALSE),][1:top,])
         
       }
       
@@ -3273,7 +3273,7 @@ server <- shinyServer(function(input, output) {
         
         #Here make the subselections for using the ggplot functions SLOPE
         slope<-na.omit(data_merged_2[data_merged_2$SlopePval<0.05 ,])
-        slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = F),][1:top,])
+        slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = FALSE),][1:top,])
         
         
       } else{
@@ -3288,7 +3288,7 @@ server <- shinyServer(function(input, output) {
         
         #Here make the subselections for using the ggplot functions SLOPE
         slope<-na.omit(data_merged_2[data_merged_2$SlopePval<0.05 ,])
-        slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = F),][1:top,])
+        slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = FALSE),][1:top,])
         
       }
       
@@ -3437,7 +3437,7 @@ server <- shinyServer(function(input, output) {
         
         #Here make the subselections for using the ggplot functions SLOPE
         slope<-na.omit(data_merged_2[data_merged_2$SlopePval<0.05 ,])
-        slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = F),][1:top,])
+        slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = FALSE),][1:top,])
         if(nrow(slope_ordered)>0){
           slope_pred<-shape_for_ggplot_pred(slope_ordered,log10(conc),pred.names)
           slope_perc<- shape_for_ggplot_perc(slope_ordered,log10(conc),final.Names)
@@ -3462,7 +3462,7 @@ server <- shinyServer(function(input, output) {
         
         #Here make the subselections for using the ggplot functions SLOPE
         slope<-na.omit(data_merged_2[data_merged_2$SlopePval<0.05 ,])
-        slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = F),][1:top,])
+        slope_ordered<-na.omit(slope[order(slope$SlopePval, decreasing = FALSE),][1:top,])
         if(nrow(slope_ordered)>0){
           slope_pred<-shape_for_ggplot_pred(slope_ordered,log10(conc),pred.names)
           slope_perc<- shape_for_ggplot_perc(slope_ordered,log10(conc),final.Names)
@@ -3503,7 +3503,7 @@ server <- shinyServer(function(input, output) {
                                                  & data_merged_2$predX1-data_merged_2[,paste0('predX',(input$chans - 1))] >0 & data_merged_2$predX1 <= 100,]))
         
         
-        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = F),][1:top,])
+        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = FALSE),][1:top,])
         
         if(nrow(RB50_ordered)>0){
           RB50_pred<-shape_for_ggplot_pred(RB50_ordered,log10(conc),pred.names)
@@ -3533,7 +3533,7 @@ server <- shinyServer(function(input, output) {
                                                  & data_merged_2$predX1-data_merged_2$predX9 >0 & data_merged_2$predX1 <= 100,]))
         
         
-        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = F),][1:top,])
+        RB50_ordered<- na.omit(RB50[order(RB50$RB50Pval, decreasing = FALSE),][1:top,])
         
         if(nrow(RB50_ordered)>0){
           RB50_pred<-shape_for_ggplot_pred(RB50_ordered,log10(conc),pred.names)
