@@ -23,7 +23,6 @@ library(httr)
 library(jsonlite)
 library(rmarkdown)
 library(dplyr)
-library(d3heatmap)
 library(prodlim)
 
 
@@ -250,7 +249,7 @@ ui <- shinyUI(dashboardPage(
       tabItem(tabName = 'tst',box(htmlOutput("sessionInfo"),width = 12)),
       tabItem(tabName = "testsigmoid",
               box(width = 12, height = 800,
-                  d3heatmapOutput("plot9",height = 750)
+                  plotOutput("plot9",height = 750)
               )),
       
       
@@ -3104,7 +3103,7 @@ server <- shinyServer(function(input, output) {
     }
   })
   
-  output$plot9<- renderD3heatmap({
+  output$plot9<- renderPlot({
     req(data())
     if(input$modtyp == 'sigmoid'){
       su <- dataMerge()
@@ -3128,8 +3127,8 @@ server <- shinyServer(function(input, output) {
     }
     
     
-    
-    d3heatmap(su1, Colv = FALSE,labRow = as.character(make.names(su$GeneID,unique = TRUE)), dendrogram = 'row' )
+    plot.new()
+    #d3heatmap(su1, Colv = FALSE,labRow = as.character(make.names(su$GeneID,unique = TRUE)), dendrogram = 'row' )
     
     
   })

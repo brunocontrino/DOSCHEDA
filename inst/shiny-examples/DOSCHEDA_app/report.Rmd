@@ -532,8 +532,8 @@ Volcano plots for all the linear fit coefficients showing the relationship betwe
     #                               Accession=su$Accession,GeneID=su$GeneID)
     # #data_merged_Pvals<-data_merged_Pvals[GeneID=="NA", GeneID := Accession] substituting NA with Accession
     #
-    
-     d3heatmap(su1, Colv = FALSE,labRow = as.character(make.names(su$GeneID.x,unique = TRUE)))
+    plot.new()
+     #d3heatmap(su1, Colv = FALSE,labRow = as.character(make.names(su$GeneID.x,unique = TRUE)))
     # m<- heatmaply(su,Colv= FALSE,
     #               labRow =  as.character(make.names(su$GeneID.x,unique = TRUE))) %>% layout(margin = list(l = 70, b = 70))
  
